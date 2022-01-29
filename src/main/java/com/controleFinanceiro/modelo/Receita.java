@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,12 +19,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Receita {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	private Integer id;
+	
 	private String descricao;
 	private BigDecimal valor;
-	private LocalDate data;	
+	private LocalDate data;
 }
