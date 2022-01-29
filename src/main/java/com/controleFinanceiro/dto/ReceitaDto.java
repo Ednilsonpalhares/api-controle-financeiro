@@ -8,7 +8,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import com.controleFinanceiro.modelo.Receita;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -38,12 +37,4 @@ public class ReceitaDto implements Serializable{
 	private BigDecimal valor;
 	@NotNull
 	private LocalDate data;
-	
-	public static ReceitaDto toReceitaDTO(Receita receita){
-		return new ReceitaDto(receita.getId(), receita.getDescricao(), receita.getValor(), receita.getData());
-	}
-	
-	public static Receita toReceita(ReceitaDto receitaDto){
-		return new Receita(receitaDto.getId(), receitaDto.getDescricao(), receitaDto.getValor(), receitaDto.getData());
-	}
 }

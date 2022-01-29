@@ -30,16 +30,16 @@ public class DespesaRecurso {
 	
 	@PostMapping
 	public ResponseEntity<DespesaDto> insert(@Valid @RequestBody DespesaDto despesaDto) {
-		Despesa despesa = despesaServico.insert(DespesaDto.toDespesa(despesaDto));
+		Despesa despesa = despesaServico.insert(Despesa.toDespesa(despesaDto));
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(DespesaDto.toDespesaDTO(despesa));
+		return ResponseEntity.status(HttpStatus.CREATED).body(Despesa.toDespesaDTO(despesa));
 	}
 	
 	@GetMapping
 	public ResponseEntity<List<DespesaDto>> findAll() {
 		List<DespesaDto> despesasDto = despesaServico.findAll()
 												     .stream()
-												     .map(despesa -> DespesaDto.toDespesaDTO(despesa))
+												     .map(despesa -> Despesa.toDespesaDTO(despesa))
 												     .collect(Collectors.toList());
 
 		return ResponseEntity.ok().body(despesasDto);
@@ -49,15 +49,15 @@ public class DespesaRecurso {
 	public ResponseEntity<DespesaDto> findById(@PathVariable Integer id) {
 		Despesa despesa = this.despesaServico.findById(id);
 
-		return ResponseEntity.ok().body(DespesaDto.toDespesaDTO(despesa));
+		return ResponseEntity.ok().body(Despesa.toDespesaDTO(despesa));
 	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<DespesaDto> update(@Valid @RequestBody DespesaDto despesaDto, @PathVariable Integer id) {
 		despesaDto.setId(id);
-		Despesa despesa = despesaServico.update(DespesaDto.toDespesa(despesaDto));
+		Despesa despesa = despesaServico.update(Despesa.toDespesa(despesaDto));
 
-		return ResponseEntity.ok().body(DespesaDto.toDespesaDTO(despesa));
+		return ResponseEntity.ok().body(Despesa.toDespesaDTO(despesa));
 	}
 	
 	@DeleteMapping("/{id}")

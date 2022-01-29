@@ -8,7 +8,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import com.controleFinanceiro.modelo.Despesa;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -39,11 +38,5 @@ public class DespesaDto implements Serializable{
 	@NotNull
 	private LocalDate data;
 	
-	public static DespesaDto toDespesaDTO(Despesa despesa){
-		return new DespesaDto(despesa.getId(), despesa.getDescricao(), despesa.getValor(), despesa.getData());
-	}
-	
-	public static Despesa toDespesa(DespesaDto despesaDto){
-		return new Despesa(despesaDto.getId(), despesaDto.getDescricao(), despesaDto.getValor(), despesaDto.getData());
-	}
+    private String categoria;
 }

@@ -30,16 +30,16 @@ public class ReceitaRecurso {
 	
 	@PostMapping
 	public ResponseEntity<ReceitaDto> insert(@Valid @RequestBody ReceitaDto receitaDto) {
-		Receita receita = receitaServico.insert(ReceitaDto.toReceita(receitaDto));
+		Receita receita = receitaServico.insert(Receita.toReceita(receitaDto));
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(ReceitaDto.toReceitaDTO(receita));
+		return ResponseEntity.status(HttpStatus.CREATED).body(Receita.toReceitaDTO(receita));
 	}
 	
 	@GetMapping
 	public ResponseEntity<List<ReceitaDto>> findAll() {
 		List<ReceitaDto> productsDto = receitaServico.findAll()
 												     .stream()
-												     .map(receita -> ReceitaDto.toReceitaDTO(receita))
+												     .map(receita -> Receita.toReceitaDTO(receita))
 												     .collect(Collectors.toList());
 
 		return ResponseEntity.ok().body(productsDto);
@@ -49,15 +49,15 @@ public class ReceitaRecurso {
 	public ResponseEntity<ReceitaDto> findById(@PathVariable Integer id) {
 		Receita receita = this.receitaServico.findById(id);
 
-		return ResponseEntity.ok().body(ReceitaDto.toReceitaDTO(receita));
+		return ResponseEntity.ok().body(Receita.toReceitaDTO(receita));
 	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<ReceitaDto> update(@Valid @RequestBody ReceitaDto receitaDto, @PathVariable Integer id) {
 		receitaDto.setId(id);
-		Receita receita = receitaServico.update(ReceitaDto.toReceita(receitaDto));
+		Receita receita = receitaServico.update(Receita.toReceita(receitaDto));
 
-		return ResponseEntity.ok().body(ReceitaDto.toReceitaDTO(receita));
+		return ResponseEntity.ok().body(Receita.toReceitaDTO(receita));
 	}
 	
 	@DeleteMapping("/{id}")
