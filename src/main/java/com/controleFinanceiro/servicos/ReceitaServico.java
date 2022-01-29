@@ -42,4 +42,10 @@ public class ReceitaServico {
 
 		return this.receitaRepositorio.save(receita);
 	}
+	
+	public void delete(Integer id) {
+		findById(id);
+
+		this.receitaRepositorio.deleteById(id);
+	}
 }
