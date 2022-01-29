@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import com.controleFinanceiro.modelo.Receita;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -27,6 +28,7 @@ public class ReceitaDto implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
+	@JsonIgnore
 	private Integer id;
 	
 	@NotBlank
@@ -37,11 +39,11 @@ public class ReceitaDto implements Serializable{
 	@NotNull
 	private LocalDate data;
 	
-	public static ReceitaDto toProductDTO(Receita receita){
+	public static ReceitaDto toReceitaDTO(Receita receita){
 		return new ReceitaDto(receita.getId(), receita.getDescricao(), receita.getValor(), receita.getData());
 	}
-
-	public static Receita toProduct(ReceitaDto receitaDto){
+	
+	public static Receita toReceita(ReceitaDto receitaDto){
 		return new Receita(receitaDto.getId(), receitaDto.getDescricao(), receitaDto.getValor(), receitaDto.getData());
 	}
 }

@@ -1,5 +1,7 @@
 package com.controleFinanceiro.servicos;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +24,9 @@ public class ReceitaServico {
 		receita.setId(null);
 
 		return this.receitaRepositorio.save(receita);
+	}
+	
+	public List<Receita> findAll() {
+		return this.receitaRepositorio.findAll();
 	}
 }
