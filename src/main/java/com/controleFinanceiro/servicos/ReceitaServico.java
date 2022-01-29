@@ -36,4 +36,10 @@ public class ReceitaServico {
 				   .findById(id)
 				   .orElseThrow(() -> new ObjectNotFoundException());
 	}
+	
+	public Receita update(Receita receita) {
+		findById(receita.getId());
+
+		return this.receitaRepositorio.save(receita);
+	}
 }
