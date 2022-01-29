@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.controleFinanceiro.servicos.exceptions.NegocionException;
+import com.controleFinanceiro.servicos.exceptions.ObjectNotFoundException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
@@ -26,5 +27,10 @@ public class ResourceExceptionHandler {
 		ValidationError validationError = new ValidationError(HttpStatus.BAD_REQUEST.value(), e.getMensagem());
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(validationError);
+	}
+	
+	@ExceptionHandler(ObjectNotFoundException.class)
+	public ResponseEntity<HttpStatus> objectNotFound(ObjectNotFoundException e){
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.controleFinanceiro.modelo.Receita;
 
 @Repository
-public interface ReceitaRepositorio extends JpaRepository<Receita, Long>{
+public interface ReceitaRepositorio extends JpaRepository<Receita, Integer>{
 
 	@Query(value = 
 		   " SELECT exists(select 1 " +

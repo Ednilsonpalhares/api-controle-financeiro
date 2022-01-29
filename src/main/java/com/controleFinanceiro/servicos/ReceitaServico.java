@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.controleFinanceiro.modelo.Receita;
 import com.controleFinanceiro.repositorios.ReceitaRepositorio;
 import com.controleFinanceiro.servicos.exceptions.NegocionException;
+import com.controleFinanceiro.servicos.exceptions.ObjectNotFoundException;
 
 @Service
 public class ReceitaServico {
@@ -28,5 +29,11 @@ public class ReceitaServico {
 	
 	public List<Receita> findAll() {
 		return this.receitaRepositorio.findAll();
+	}
+	
+	public Receita findById(Integer id) {
+		return this.receitaRepositorio
+				   .findById(id)
+				   .orElseThrow(() -> new ObjectNotFoundException());
 	}
 }
