@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.controleFinanceiro.dto.DespesaDto;
@@ -36,11 +37,13 @@ public class DespesaRecurso {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<DespesaDto>> findAll() {
-		List<DespesaDto> despesasDto = despesaServico.findAll()
-												     .stream()
-												     .map(despesa -> Despesa.toDespesaDTO(despesa))
-												     .collect(Collectors.toList());
+	public ResponseEntity<List<DespesaDto>> findByDescricaoOrAll(
+											@RequestParam(required = false, value = "descricao") String descricao) {
+		List<Despesa> despesas = descricao != null ? despesaServico.findByDescricao(descricao) : despesaServico.findAll();
+		
+		List<DespesaDto> despesasDto = despesas.stream()
+										       .map(despesa -> Despesa.toDespesaDTO(despesa))
+										       .collect(Collectors.toList());
 
 		return ResponseEntity.ok().body(despesasDto);
 	}

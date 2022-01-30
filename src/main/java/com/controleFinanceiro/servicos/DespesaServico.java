@@ -31,6 +31,16 @@ public class DespesaServico {
 		return this.despesaRepositorio.findAll();
 	}
 	
+	public List<Despesa> findByDescricao(String descricao) {
+		List<Despesa> despesas = this.despesaRepositorio.findByDescricao(descricao);
+		
+		if(despesas.isEmpty())
+			throw new ObjectNotFoundException();
+		
+		return despesas;
+				   
+	}
+	
 	public Despesa findById(Integer id) {
 		return this.despesaRepositorio
 				   .findById(id)

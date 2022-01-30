@@ -37,6 +37,16 @@ public class ReceitaServico {
 				   .orElseThrow(() -> new ObjectNotFoundException());
 	}
 	
+	public List<Receita> findByDescricao(String descricao) {
+		List<Receita> receitas = this.receitaRepositorio.findByDescricao(descricao);
+		
+		if(receitas.isEmpty())
+			throw new ObjectNotFoundException();
+		
+		return receitas;
+				   
+	}
+	
 	public Receita update(Receita receita) {
 		findById(receita.getId());
 

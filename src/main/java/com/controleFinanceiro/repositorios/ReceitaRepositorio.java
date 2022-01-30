@@ -1,6 +1,7 @@
 package com.controleFinanceiro.repositorios;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,4 +21,6 @@ public interface ReceitaRepositorio extends JpaRepository<Receita, Integer>{
 		   "		) ",
 		   nativeQuery = true)
 	public Boolean findReceitaComMesmaDescricaoEDentroDoMesmoMes(String descricao, LocalDate data);
+	
+	public List<Receita> findByDescricao(String descricao);
 }

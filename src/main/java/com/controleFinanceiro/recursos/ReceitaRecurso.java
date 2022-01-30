@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.controleFinanceiro.dto.ReceitaDto;
@@ -36,11 +37,14 @@ public class ReceitaRecurso {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<ReceitaDto>> findAll() {
-		List<ReceitaDto> productsDto = receitaServico.findAll()
-												     .stream()
-												     .map(receita -> Receita.toReceitaDTO(receita))
-												     .collect(Collectors.toList());
+	public ResponseEntity<List<ReceitaDto>> findByDescricaoOrAll(
+											@RequestParam(required = false, value = "descricao") String descricao) {
+		
+		List<Receita> receitas = descricao != null ? receitaServico.findByDescricao(descricao) : receitaServico.findAll();
+		
+		List<ReceitaDto> productsDto = receitas.stream()
+											   .map(receita -> Receita.toReceitaDTO(receita))
+										       .collect(Collectors.toList());
 
 		return ResponseEntity.ok().body(productsDto);
 	}
