@@ -42,11 +42,11 @@ public class ReceitaRecurso {
 		
 		List<Receita> receitas = descricao != null ? receitaServico.findByDescricao(descricao) : receitaServico.findAll();
 		
-		List<ReceitaDto> productsDto = receitas.stream()
+		List<ReceitaDto> receitasDto = receitas.stream()
 											   .map(receita -> Receita.toReceitaDTO(receita))
 										       .collect(Collectors.toList());
 
-		return ResponseEntity.ok().body(productsDto);
+		return ResponseEntity.ok().body(receitasDto);
 	}
 	
 	@GetMapping("/{id}")
@@ -69,5 +69,18 @@ public class ReceitaRecurso {
 		this.receitaServico.delete(id);
 
 		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping("/{ano}/{mes}")
+	public ResponseEntity<List<ReceitaDto>> findByAnoEMes(
+									  @PathVariable Integer ano,
+									  @PathVariable Integer mes) {
+
+		List<ReceitaDto> receitasDto = receitaServico.findReceitaByMesEAno(ano, mes)
+													 .stream()
+				                                     .map(receita -> Receita.toReceitaDTO(receita))
+			                                         .collect(Collectors.toList());
+
+		return ResponseEntity.ok().body(receitasDto);
 	}
 }

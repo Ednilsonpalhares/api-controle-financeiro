@@ -58,4 +58,14 @@ public class DespesaServico {
 
 		this.despesaRepositorio.deleteById(id);
 	}
+	
+	public List<Despesa> findDespesaByMesEAno(Integer ano, Integer mes) {
+		List<Despesa> despesas = this.despesaRepositorio.findDespesaByMesEAno(ano, mes);
+		
+		if(despesas.isEmpty())
+			throw new ObjectNotFoundException();
+		
+		return despesas;
+				   
+	}
 }

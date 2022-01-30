@@ -69,4 +69,17 @@ public class DespesaRecurso {
 
 		return ResponseEntity.ok().build();
 	}
+	
+	@GetMapping("/{ano}/{mes}")
+	public ResponseEntity<List<DespesaDto>> findByAnoEMes(
+									  @PathVariable Integer ano,
+									  @PathVariable Integer mes) {
+
+		List<DespesaDto> despesasDto = despesaServico.findDespesaByMesEAno(ano, mes)
+													 .stream()
+				                                     .map(despesa -> Despesa.toDespesaDTO(despesa))
+			                                         .collect(Collectors.toList());
+
+		return ResponseEntity.ok().body(despesasDto);
+	}
 }

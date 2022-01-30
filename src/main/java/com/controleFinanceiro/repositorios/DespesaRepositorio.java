@@ -22,6 +22,13 @@ public interface DespesaRepositorio extends JpaRepository<Despesa, Integer>{
 		   nativeQuery = true)
 	public Boolean findDespesaComMesmaDescricaoEDentroDoMesmoMes(String descricao, LocalDate data);
 	
+	@Query(value = " SELECT d.id, d.descricao, d.valor, d.data, d.categoria " +
+		   	       " FROM despesa d " +
+		           " WHERE EXTRACT(YEAR FROM d.data) = ?1 " +
+		           "   	AND EXTRACT(MONTH FROM d.data) = ?2 ",
+	   nativeQuery = true)
+	public List<Despesa> findDespesaByMesEAno(Integer ano, Integer mes);
+	
 	public List<Despesa> findByDescricao(String descricao);
 
 }

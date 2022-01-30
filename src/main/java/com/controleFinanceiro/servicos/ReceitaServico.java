@@ -58,4 +58,14 @@ public class ReceitaServico {
 
 		this.receitaRepositorio.deleteById(id);
 	}
+	
+	public List<Receita> findReceitaByMesEAno(Integer ano, Integer mes) {
+		List<Receita> receitas = this.receitaRepositorio.findReceitaByMesEAno(ano, mes);
+		
+		if(receitas.isEmpty())
+			throw new ObjectNotFoundException();
+		
+		return receitas;
+				   
+	}
 }
