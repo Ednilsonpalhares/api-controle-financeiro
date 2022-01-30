@@ -10,6 +10,7 @@ import com.controleFinanceiro.dto.GastoCategoriaDto;
 import com.controleFinanceiro.dto.ResumoDto;
 import com.controleFinanceiro.repositorios.DespesaRepositorio;
 import com.controleFinanceiro.repositorios.ReceitaRepositorio;
+import com.controleFinanceiro.servicos.exceptions.NoContentException;
 
 @Service
 public class ResumoServico {
@@ -23,6 +24,9 @@ public class ResumoServico {
 	public ResumoDto buscarResumoPorMesEAno(Integer ano, Integer mes) {
 		BigDecimal totalReceitasPorMes = this.receitaRepositorio.totalReceitasPorMes(ano, mes);
 		BigDecimal totalDespesasPorMes = this.despesaRepositorio.totalDespesasPorMes(ano, mes);
+		
+		if(totalReceitasPorMes == null || totalDespesasPorMes == null)
+			throw new NoContentException();
 		
 		BigDecimal saldoFinalNoMes = totalReceitasPorMes.subtract(totalDespesasPorMes);
 

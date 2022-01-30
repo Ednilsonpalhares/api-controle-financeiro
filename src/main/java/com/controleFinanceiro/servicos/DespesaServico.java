@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.controleFinanceiro.modelo.Despesa;
 import com.controleFinanceiro.repositorios.DespesaRepositorio;
 import com.controleFinanceiro.servicos.exceptions.NegocionException;
+import com.controleFinanceiro.servicos.exceptions.NoContentException;
 import com.controleFinanceiro.servicos.exceptions.ObjectNotFoundException;
 
 @Service
@@ -15,6 +16,8 @@ public class DespesaServico {
 	
 	@Autowired
 	private DespesaRepositorio despesaRepositorio;
+	
+	private final static String MENSAGEM_DE_ERRO = "Receita não encontrada.";
 	
 	public Despesa insert(Despesa despesa) {
 		
@@ -35,7 +38,7 @@ public class DespesaServico {
 		List<Despesa> despesas = this.despesaRepositorio.findByDescricao(descricao);
 		
 		if(despesas.isEmpty())
-			throw new ObjectNotFoundException();
+			throw new ObjectNotFoundException(MENSAGEM_DE_ERRO);
 		
 		return despesas;
 				   
@@ -44,7 +47,7 @@ public class DespesaServico {
 	public Despesa findById(Integer id) {
 		return this.despesaRepositorio
 				   .findById(id)
-				   .orElseThrow(() -> new ObjectNotFoundException());
+				   .orElseThrow(() -> new ObjectNotFoundException(MENSAGEM_DE_ERRO));
 	}
 	
 	public Despesa update(Despesa despesa) {
@@ -63,7 +66,7 @@ public class DespesaServico {
 		List<Despesa> despesas = this.despesaRepositorio.findDespesaByMesEAno(ano, mes);
 		
 		if(despesas.isEmpty())
-			throw new ObjectNotFoundException();
+			throw new NoContentException();
 		
 		return despesas; 
 	}

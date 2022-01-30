@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.controleFinanceiro.modelo.Receita;
 import com.controleFinanceiro.repositorios.ReceitaRepositorio;
 import com.controleFinanceiro.servicos.exceptions.NegocionException;
+import com.controleFinanceiro.servicos.exceptions.NoContentException;
 import com.controleFinanceiro.servicos.exceptions.ObjectNotFoundException;
 
 @Service
@@ -15,6 +16,8 @@ public class ReceitaServico {
 	
 	@Autowired
 	private ReceitaRepositorio receitaRepositorio;
+	
+	private final static String MENSAGEM_DE_ERRO = "Receita não encontrada.";
 	
 	public Receita insert(Receita receita) {
 		
@@ -34,14 +37,14 @@ public class ReceitaServico {
 	public Receita findById(Integer id) {
 		return this.receitaRepositorio
 				   .findById(id)
-				   .orElseThrow(() -> new ObjectNotFoundException());
+				   .orElseThrow(() -> new ObjectNotFoundException(MENSAGEM_DE_ERRO));
 	}
 	
 	public List<Receita> findByDescricao(String descricao) {
 		List<Receita> receitas = this.receitaRepositorio.findByDescricao(descricao);
 		
 		if(receitas.isEmpty())
-			throw new ObjectNotFoundException();
+			throw new ObjectNotFoundException(MENSAGEM_DE_ERRO);
 		
 		return receitas;
 				   
@@ -63,7 +66,7 @@ public class ReceitaServico {
 		List<Receita> receitas = this.receitaRepositorio.findReceitaByMesEAno(ano, mes);
 		
 		if(receitas.isEmpty())
-			throw new ObjectNotFoundException();
+			throw new NoContentException();
 		
 		return receitas;	   
 	}				
