@@ -1,5 +1,6 @@
 package com.controleFinanceiro.repositorios;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.controleFinanceiro.dto.GastoCategoriaDto;
 import com.controleFinanceiro.modelo.Despesa;
 
 @Repository
@@ -28,7 +30,20 @@ public interface DespesaRepositorio extends JpaRepository<Despesa, Integer>{
 		           "   	AND EXTRACT(MONTH FROM d.data) = ?2 ",
 	   nativeQuery = true)
 	public List<Despesa> findDespesaByMesEAno(Integer ano, Integer mes);
+		
+	@Query(value = " SELECT SUM(d.valor) " +
+	   	           " FROM despesa d " +
+	               " WHERE EXTRACT(YEAR FROM d.data) = ?1 " +
+	               "   	AND EXTRACT(MONTH FROM d.data) = ?2 ",
+	       nativeQuery = true)
+	public BigDecimal totalDespesasPorMes(Integer ano, Integer mes);
+	
+    @Query(value = "SELECT new com.controleFinanceiro.dto.GastoCategoriaDto(d.categoria, sum(d.valor))" +
+    		       " FROM Despesa d " +
+                   " WHERE YEAR(d.data) = ?1 " +
+                   "   	AND MONTH(d.data) = ?2 " + 
+                   " GROUP BY d.categoria ")
+	public List<GastoCategoriaDto> totalMesEAnoPorCategoria(Integer ano, Integer mes);
 	
 	public List<Despesa> findByDescricao(String descricao);
-
 }

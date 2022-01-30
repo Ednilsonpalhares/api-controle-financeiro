@@ -65,7 +65,6 @@ public class ReceitaServico {
 		if(receitas.isEmpty())
 			throw new ObjectNotFoundException();
 		
-		return receitas;
-				   
-	}
+		return receitas;	   
+	}				
 }

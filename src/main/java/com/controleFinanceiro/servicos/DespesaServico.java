@@ -65,7 +65,6 @@ public class DespesaServico {
 		if(despesas.isEmpty())
 			throw new ObjectNotFoundException();
 		
-		return despesas;
-				   
+		return despesas; 
 	}
 }

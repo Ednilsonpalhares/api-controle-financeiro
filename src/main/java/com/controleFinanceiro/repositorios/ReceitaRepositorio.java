@@ -1,5 +1,6 @@
 package com.controleFinanceiro.repositorios;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -28,6 +29,12 @@ public interface ReceitaRepositorio extends JpaRepository<Receita, Integer>{
 			       "   	AND EXTRACT(MONTH FROM r.data) = ?2 ",
 		   nativeQuery = true)
 	public List<Receita> findReceitaByMesEAno(Integer ano, Integer mes);
+	
+	@Query(value = " SELECT SUM(r.valor) " +
+	               " FROM Receita r " +
+                   " WHERE YEAR(r.data) = ?1 " +
+                   "   	AND MONTH(r.data) = ?2 ")
+	public BigDecimal totalReceitasPorMes(Integer ano, Integer mes);
 	
 	public List<Receita> findByDescricao(String descricao);
 }
