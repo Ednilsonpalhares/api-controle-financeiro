@@ -23,7 +23,7 @@ As requisições para a API devem seguir os padrões:
 |:-------|----------------------------------------------------------------------------|
 | `200`  | Requisição executada com sucesso.                                          |
 | `201`  | Recurso cadastrado.                                                        |
-| `204`  | Registro pesquisado não encontrado. 
+| `204`  | Sem conteúdo. 
 | `400`  | Campos não válidos para requisição.                                        ||
 | `404`  | Registro pesquisado não encontrado. (Referente a interação com o recurso). |
 | `500`  | Erro interno no servidor.  
