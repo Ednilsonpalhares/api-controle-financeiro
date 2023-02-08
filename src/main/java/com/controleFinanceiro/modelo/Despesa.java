@@ -3,16 +3,11 @@ package com.controleFinanceiro.modelo;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 import com.controleFinanceiro.dto.DespesaDto;
 import com.controleFinanceiro.enums.Categoria;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -28,7 +23,7 @@ import lombok.Setter;
 public class Despesa {
 	
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.AUTO)
 	private Integer id;
 	private String descricao;
 	private BigDecimal valor;
